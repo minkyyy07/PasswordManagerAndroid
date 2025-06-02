@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -50,6 +52,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     
+    // Material Design (for traditional views)
+    implementation("com.google.android.material:material:1.11.0")
+    
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
     
@@ -58,6 +63,14 @@ dependencies {
     
     // Material Icons Extended
     implementation("androidx.compose.material:material-icons-extended:1.6.1")
+    
+    // DataStore Preferences
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    
+    // Dagger Hilt
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -67,4 +80,3 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
-

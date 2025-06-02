@@ -2,7 +2,15 @@ package com.example.passwordmanager.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -73,15 +81,13 @@ fun DetailScreen(
                     ClipboardUtils.copyToClipboard(
                         context,
                         "Username",
-                        passwordEntry.username,
-                        showToast = true,
-                        toastMessage = "Username copied to clipboard"
+                        passwordEntry.username
                     )
                 }
             )
             
-            Divider(modifier = Modifier.padding(vertical = 8.dp))
-            
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
             // Password
             DetailItem(
                 label = "Password",
@@ -91,9 +97,7 @@ fun DetailScreen(
                     ClipboardUtils.copyToClipboard(
                         context,
                         "Password",
-                        passwordEntry.password,
-                        showToast = true,
-                        toastMessage = "Password copied to clipboard"
+                        passwordEntry.password
                     )
                 },
                 trailingIcon = {
@@ -107,8 +111,8 @@ fun DetailScreen(
             )
             
             if (passwordEntry.url.isNotBlank()) {
-                Divider(modifier = Modifier.padding(vertical = 8.dp))
-                
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
                 // URL
                 DetailItem(
                     label = "URL",
@@ -118,17 +122,15 @@ fun DetailScreen(
                         ClipboardUtils.copyToClipboard(
                             context,
                             "URL",
-                            passwordEntry.url,
-                            showToast = true,
-                            toastMessage = "URL copied to clipboard"
+                            passwordEntry.url
                         )
                     }
                 )
             }
             
             if (passwordEntry.notes.isNotBlank()) {
-                Divider(modifier = Modifier.padding(vertical = 8.dp))
-                
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
                 // Notes
                 Text(
                     text = "Notes",

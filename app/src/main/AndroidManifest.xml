@@ -2,6 +2,7 @@
     package="com.example.passwordmanager">
 
     <application
+        android:name=".PasswordManagerApplication"
         android:allowBackup="true"
         android:label="Password Manager"
         android:icon="@mipmap/ic_launcher"

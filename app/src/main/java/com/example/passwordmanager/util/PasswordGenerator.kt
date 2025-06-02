@@ -90,7 +90,7 @@ class PasswordGenerator {
                 if (i > 0) password.append(separator)
                 
                 val word = words[secureRandom.nextInt(words.size)]
-                password.append(word.capitalize())
+                password.append(word.replaceFirstChar { it.uppercase() })
                 
                 if (includeNumbers && secureRandom.nextBoolean()) {
                     password.append(secureRandom.nextInt(100))
@@ -181,13 +181,6 @@ class PasswordGenerator {
             return minOf(penalty, 30)
         }
         
-        // Default password generation options
-        private const val DEFAULT_LENGTH = 16
-        private const val DEFAULT_USE_UPPERCASE = true
-        private const val DEFAULT_USE_LOWERCASE = true
-        private const val DEFAULT_USE_NUMBERS = true
-        private const val DEFAULT_USE_SPECIAL = true
-
         /**
          * Generate a password with default options
          * @return A strong password with default settings
@@ -195,10 +188,10 @@ class PasswordGenerator {
         fun generatePassword(): String {
             return generatePassword(
                 length = DEFAULT_LENGTH,
-                useUppercase = DEFAULT_USE_UPPERCASE,
-                useLowercase = DEFAULT_USE_LOWERCASE,
-                useNumbers = DEFAULT_USE_NUMBERS,
-                useSpecial = DEFAULT_USE_SPECIAL
+                useUppercase = true,
+                useLowercase = true,
+                useNumbers = true,
+                useSpecial = true
             )
         }
     }

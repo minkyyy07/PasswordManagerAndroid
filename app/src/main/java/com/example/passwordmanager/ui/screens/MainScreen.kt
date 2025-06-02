@@ -180,15 +180,3 @@ fun PasswordEntryCard(entry: PasswordEntry, onClick: () -> Unit) {
         }
     }
 }
-
-// Data model for password entries
-data class PasswordEntry(
-    val id: Long,
-    val title: String,
-    val username: String,
-    val password: String,
-    val url: String = "",
-    val notes: String = "",
-    val createdAt: Long = System.currentTimeMillis(),
-    val updatedAt: Long = System.currentTimeMillis()
-)
