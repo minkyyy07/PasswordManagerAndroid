@@ -93,7 +93,7 @@ fun AddEntryDialog(
                 
                 Button(
                     onClick = {
-                        password = PasswordGenerator.generatePassword()
+                        password = PasswordGenerator.generate()
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
