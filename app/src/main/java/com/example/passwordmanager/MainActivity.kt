@@ -10,6 +10,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.passwordmanager.ui.theme.PasswordManagerTheme
+import com.example.passwordmanager.ui.screens.HomeScreen
+import com.example.passwordmanager.ui.screens.PasswordManagerNavGraph
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,12 +19,8 @@ class MainActivity : ComponentActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             setContent {
                 PasswordManagerTheme {
-                    Surface(
-                        modifier = Modifier.fillMaxSize(),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
-                        PasswordManagerApp()
-                    }
+                    // Здесь должен вызываться HomeScreen, WelcomeScreen или CategoriesScreen
+                    PasswordManagerNavGraph()
                 }
             }
         }, 1500) // 1.5 seconds delay

@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="splash_background">#1976D2</color>
+
+    <!-- Material 3 Dark Theme Colors -->
+    <color name="md_theme_dark_primary">#63A4FF</color> <!-- Blue Accent -->
+    <color name="md_theme_dark_onPrimary">#002D6E</color>
+    <color name="md_theme_dark_primaryContainer">#00429B</color>
+    <color name="md_theme_dark_onPrimaryContainer">#DCE1FF</color>
+    <color name="md_theme_dark_secondary">#5FD4A9</color> <!-- Green Accent -->
+    <color name="md_theme_dark_onSecondary">#003827</color>
+    <color name="md_theme_dark_secondaryContainer">#00513A</color>
+    <color name="md_theme_dark_onSecondaryContainer">#7DFBC4</color>
+    <color name="md_theme_dark_tertiary">#ADC6FF</color>
+    <color name="md_theme_dark_onTertiary">#002F67</color>
+    <color name="md_theme_dark_tertiaryContainer">#004591</color>
+    <color name="md_theme_dark_onTertiaryContainer">#D7E2FF</color>
+    <color name="md_theme_dark_error">#FFB4AB</color>
+    <color name="md_theme_dark_onError">#690005</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onErrorContainer">#FFDAD6</color>
+    <color name="md_theme_dark_background">#1A1C1E</color>
+    <color name="md_theme_dark_onBackground">#E2E2E6</color>
+    <color name="md_theme_dark_surface">#1A1C1E</color>
+    <color name="md_theme_dark_onSurface">#E2E2E6</color>
+    <color name="md_theme_dark_surfaceVariant">#42474E</color>
+    <color name="md_theme_dark_onSurfaceVariant">#C2C7CE</color>
+    <color name="md_theme_dark_outline">#8C9199</color>
+    <color name="md_theme_dark_inverseSurface">#E2E2E6</color>
+    <color name="md_theme_dark_inverseOnSurface">#2F3033</color>
+    <color name="md_theme_dark_inversePrimary">#38609D</color>
+    <color name="md_theme_dark_shadow">#000000</color>
+    <color name="md_theme_dark_surfaceTint">#63A4FF</color>
+    <color name="md_theme_dark_outlineVariant">#42474E</color>
+    <color name="md_theme_dark_scrim">#000000</color>
+
+    <!-- Custom Accent Colors (can be same as primary/secondary or different) -->
+    <color name="accent_blue_dark">#0052D4</color>
+    <color name="accent_green_dark">#00B09B</color>
 </resources>

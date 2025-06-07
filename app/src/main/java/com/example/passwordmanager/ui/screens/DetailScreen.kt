@@ -1,5 +1,6 @@
 package com.example.passwordmanager.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
@@ -15,11 +16,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.passwordmanager.model.PasswordEntry
+import com.example.passwordmanager.ui.theme.md_theme_dark_primary
+import com.example.passwordmanager.ui.theme.md_theme_dark_secondary
 import com.example.passwordmanager.util.ClipboardUtils
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,22 +44,43 @@ fun DetailScreen(
     
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(passwordEntry.title) },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { onEdit(passwordEntry) }) {
-                        Icon(Icons.Filled.Edit, contentDescription = "Edit")
-                    }
-                    IconButton(onClick = { showDeleteConfirmation = true }) {
-                        Icon(Icons.Filled.Delete, contentDescription = "Delete")
-                    }
-                }
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        Brush.horizontalGradient(
+                            colors = listOf(md_theme_dark_primary, md_theme_dark_secondary)
+                        )
+                    )
+            ) {
+                TopAppBar(
+                    title = { Text(passwordEntry.title) },
+                    navigationIcon = {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            IconButton(onClick = onNavigateBack) {
+                                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                            }
+                            // Добавим дополнительный элемент (например, логотип)
+                            Icon(
+                                imageVector = Icons.Filled.Person, // Можно заменить на свой
+                                contentDescription = "Logo",
+                                modifier = Modifier.size(28.dp).padding(start = 4.dp)
+                            )
+                        }
+                    },
+                    actions = {
+                        IconButton(onClick = { onEdit(passwordEntry) }) {
+                            Icon(Icons.Filled.Edit, contentDescription = "Edit")
+                        }
+                        IconButton(onClick = { showDeleteConfirmation = true }) {
+                            Icon(Icons.Filled.Delete, contentDescription = "Delete")
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = Color.Transparent // Set to transparent, gradient is behind
+                    )
+                )
+            }
         }
     ) { padding ->
         Column(
