@@ -17,9 +17,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.passwordmanager.ui.theme.md_theme_dark_primary
 import com.example.passwordmanager.ui.theme.md_theme_dark_secondary
+import com.example.passwordmanager.ui.viewmodel.PasswordViewModel
 
 @Composable
-fun HomeScreen(userName: String = "James Hendry", onAddClick: () -> Unit = {}) {
+fun HomeScreen(passwordViewModel: PasswordViewModel, onAddClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -43,7 +44,7 @@ fun HomeScreen(userName: String = "James Hendry", onAddClick: () -> Unit = {}) {
                 ) {}
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = "Welcome back!\n$userName",
+                    text = "Welcome back!",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onPrimary

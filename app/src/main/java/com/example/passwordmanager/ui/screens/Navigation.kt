@@ -1,20 +1,18 @@
 package com.example.passwordmanager.ui.screens
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.passwordmanager.ui.screens.WelcomeScreen
-import com.example.passwordmanager.ui.screens.HomeScreen
-import com.example.passwordmanager.ui.screens.CategoriesScreen
-import com.example.passwordmanager.ui.screens.DetailScreen
-import com.example.passwordmanager.ui.screens.SettingsScreen
 import com.example.passwordmanager.model.PasswordEntry
+import com.example.passwordmanager.ui.viewmodel.PasswordViewModel
 
 sealed class Screen(val route: String) {
     object Welcome : Screen("welcome")
     object Home : Screen("home")
+    object Add : Screen("add")
     object Categories : Screen("categories")
     object Detail : Screen("detail")
     object Settings : Screen("settings")
@@ -22,12 +20,35 @@ sealed class Screen(val route: String) {
 
 @Composable
 fun PasswordManagerNavGraph(navController: NavHostController = rememberNavController()) {
+    val passwordViewModel: PasswordViewModel = viewModel()
+
     NavHost(navController = navController, startDestination = Screen.Welcome.route) {
         composable(Screen.Welcome.route) {
             WelcomeScreen(onGetStarted = { navController.navigate(Screen.Home.route) })
         }
         composable(Screen.Home.route) {
-            HomeScreen()
+            HomeScreen(
+                passwordViewModel = passwordViewModel,
+                onAddClick = { navController.navigate(Screen.Add.route) }
+            )
+        }
+        composable(Screen.Add.route) {
+            AddPasswordScreen(
+                onSave = { title, username, password, url, notes ->
+                    passwordViewModel.addPassword(
+                        PasswordEntry(
+                            id = System.currentTimeMillis(),
+                            title = title,
+                            username = username,
+                            password = password,
+                            url = url,
+                            notes = notes
+                        )
+                    )
+                    navController.popBackStack(Screen.Home.route, false)
+                },
+                onCancel = { navController.popBackStack() }
+            )
         }
         composable(Screen.Categories.route) {
             CategoriesScreen()
