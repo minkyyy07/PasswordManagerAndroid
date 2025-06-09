@@ -34,7 +34,7 @@ fun PasswordManagerNavGraph(navController: NavHostController = rememberNavContro
         }
         composable(Screen.Add.route) {
             AddPasswordScreen(
-                onSave = { title, username, password, url, notes ->
+                onSave = { title, username, password, url, notes, category ->
                     passwordViewModel.addPassword(
                         PasswordEntry(
                             id = System.currentTimeMillis(),
@@ -42,7 +42,8 @@ fun PasswordManagerNavGraph(navController: NavHostController = rememberNavContro
                             username = username,
                             password = password,
                             url = url,
-                            notes = notes
+                            notes = notes,
+                            category = category
                         )
                     )
                     navController.popBackStack(Screen.Home.route, false)

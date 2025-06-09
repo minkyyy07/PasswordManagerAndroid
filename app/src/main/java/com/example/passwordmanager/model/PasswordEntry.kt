@@ -8,6 +8,7 @@ package com.example.passwordmanager.model
  * @param password Password for the entry
  * @param url URL of the website or service (optional)
  * @param notes Additional notes about the entry (optional)
+ * @param category Category of the password entry (optional)
  * @param createdAt Timestamp when the entry was created
  * @param updatedAt Timestamp when the entry was last updated
  */
@@ -18,6 +19,7 @@ data class PasswordEntry(
     val password: String,
     val url: String = "",
     val notes: String = "",
+    val category: String = "Other",
     val createdAt: Long = System.currentTimeMillis(),
     val updatedAt: Long = System.currentTimeMillis()
 )

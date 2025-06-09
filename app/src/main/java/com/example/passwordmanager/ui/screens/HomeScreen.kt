@@ -13,51 +13,83 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.passwordmanager.ui.theme.md_theme_dark_primary
 import com.example.passwordmanager.ui.theme.md_theme_dark_secondary
 import com.example.passwordmanager.ui.viewmodel.PasswordViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(passwordViewModel: PasswordViewModel, onAddClick: () -> Unit) {
-    Box(
+    val categories = passwordViewModel.categories
+    val selectedCategory = passwordViewModel.selectedCategory
+    val passwords = passwordViewModel.filteredPasswords
+
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(md_theme_dark_primary, md_theme_dark_secondary)
-                )
-            )
+            .background(Brush.verticalGradient(listOf(md_theme_dark_primary, md_theme_dark_secondary)))
     ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 32.dp, start = 24.dp, end = 24.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                // TODO: User avatar
-                Surface(
-                    modifier = Modifier.size(48.dp).clip(CircleShape),
-                    color = MaterialTheme.colorScheme.primaryContainer
-                ) {}
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(
-                    text = "Welcome back!",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onPrimary
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 32.dp, start = 24.dp, end = 24.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            // TODO: User avatar
+            Surface(
+                modifier = Modifier.size(48.dp).clip(CircleShape),
+                color = MaterialTheme.colorScheme.primaryContainer
+            ) {}
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(
+                text = "Welcome back!",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onPrimary
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            IconButton(onClick = onAddClick) {
+                Icon(Icons.Filled.Add, contentDescription = "Add", tint = MaterialTheme.colorScheme.onPrimary)
+            }
+        }
+
+        // Категории
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            categories.forEach { category ->
+                FilterChip(
+                    selected = selectedCategory == category,
+                    onClick = { passwordViewModel.selectCategory(category) },
+                    label = { Text(category) }
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                IconButton(onClick = onAddClick) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add", tint = MaterialTheme.colorScheme.onPrimary)
+            }
+        }
+
+        // Список паролей
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(passwords) { entry ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                ) {
+                    Column(Modifier.padding(16.dp)) {
+                        Text(entry.title, fontWeight = FontWeight.Bold)
+                        Text(entry.username, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(entry.category, color = MaterialTheme.colorScheme.secondary)
+                    }
                 }
             }
-            // TODO: Categories row
-            Spacer(modifier = Modifier.height(16.dp))
-            // TODO: Recent Activity List
-            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

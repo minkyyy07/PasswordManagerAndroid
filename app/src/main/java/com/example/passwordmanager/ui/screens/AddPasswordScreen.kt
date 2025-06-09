@@ -11,12 +11,20 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.passwordmanager.ui.theme.md_theme_dark_primary
 import com.example.passwordmanager.ui.theme.md_theme_dark_secondary
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.DropdownMenuItem
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddPasswordScreen(
-    onSave: (title: String, username: String, password: String, url: String, notes: String) -> Unit,
+    onSave: (title: String, username: String, password: String, url: String, notes: String, category: String) -> Unit,
     onCancel: () -> Unit
 ) {
+    var expanded by remember { mutableStateOf(false) }
+    var category by remember { mutableStateOf("Other") }
+    val categories = listOf("Websites", "Applications", "Social Media", "Payments", "Other")
+
     var title by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -38,6 +46,38 @@ fun AddPasswordScreen(
         ) {
             Text("Добавить пароль", style = MaterialTheme.typography.headlineSmall)
             Spacer(modifier = Modifier.height(16.dp))
+
+            // Категория (Dropdown)
+            ExposedDropdownMenuBox(
+                expanded = expanded,
+                onExpandedChange = { expanded = !expanded }
+            ) {
+                OutlinedTextField(
+                    value = category,
+                    onValueChange = {},
+                    readOnly = true,
+                    label = { Text("Категория") },
+                    trailingIcon = {
+                        ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                    },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                ExposedDropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    categories.forEach { selectionOption ->
+                        DropdownMenuItem(
+                            onClick = {
+                                category = selectionOption
+                                expanded = false
+                            },
+                            text = { Text(selectionOption) }
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
@@ -84,7 +124,7 @@ fun AddPasswordScreen(
                 }
                 Button(
                     onClick = {
-                        onSave(title, username, password, url, notes)
+                        onSave(title, username, password, url, notes, category)
                     },
                     enabled = title.isNotBlank() && username.isNotBlank() && password.isNotBlank()
                 ) {
